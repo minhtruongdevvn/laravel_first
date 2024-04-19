@@ -14,8 +14,7 @@
                 <div class="content-text-wrapper">
                     <blockquote>{{ $note->note }}</blockquote>
                 </div>
-                <blockquote class="m-6">&nbsp;&nbsp;&nbsp;...</blockquote>
-                <div style="text-align: center"><cite>Aldous Huxley</cite></div>
+                <div style="text-align: center"><cite>{{ $note->user->name }}</cite></div>
             </div>
         @endforeach
     </div>

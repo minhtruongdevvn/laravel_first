@@ -1,8 +1,11 @@
-<x-layout>
+<x-app-layout>
     <div class="content-container create">
         <h1 style="font-size: 2rem">Create new note</h1>
         <form action="{{ route('note.update', $note) }}" method="POST" class="note">
-            <textarea style="width: 100%" name="note" rows="10" class="note-body" placeholder="Enter your note here">
+            @csrf <!-- CSRF token for security -->
+            @method('PUT') <!-- Specify the method Laravel should use -->
+
+            <textarea style="width: 100%" name="note" rows="10">
                 {{ $note->note }}
             </textarea>
             <div class="note-buttons">
@@ -12,4 +15,4 @@
             </div>
         </form>
     </div>
-</x-layout>
+</x-app-layout>

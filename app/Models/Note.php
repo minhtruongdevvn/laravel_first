@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'note',
+        'user_id',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

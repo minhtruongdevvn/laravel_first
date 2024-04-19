@@ -13,8 +13,11 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::query()->orderBy('created_at', 'desc')->paginate();
-        // dd($note);
+        $notes = Note::with('user')
+            ->where('user_id', request()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+
         return view('note.view', ['notes' => $notes]);
     }
 
@@ -49,6 +52,13 @@ class NoteController extends Controller
         if ($note->user_id !== request()->user()->id) {
             abort(403);
         }
+
+        $note = Note::with([
+            'user' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ])->find($note->id);
+
         return view('note.show', ['note' => $note]);
     }
 

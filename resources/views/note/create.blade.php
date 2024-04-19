@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="content-container create">
         <h1 style="font-size: 2rem">Create new note</h1>
         <form action="{{ route('note.store') }}" method="POST" class="note">
@@ -11,4 +11,4 @@
             </div>
         </form>
     </div>
-</x-layout>
+</x-app-layout>

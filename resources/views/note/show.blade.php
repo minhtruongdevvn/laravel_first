@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="content-container show">
         <div class="content-action">
             <a class="link-btn" href="{{ route('note.index', $note->id) }}">
@@ -9,8 +9,7 @@
         <div class="content-text-wrapper">
             <blockquote style="max-width: 100%">{{ $note->note }}</blockquote>
         </div>
-        <br>
-        <br>
-        <div style="text-align: center"><cite style="font-size:2rem">Aldous Huxley</cite></div>
+
+        <div style="text-align: center"><cite style="font-size:2rem">{{ $note->user->name }}</cite></div>
     </div>
-</x-layout>
+</x-app-layout>

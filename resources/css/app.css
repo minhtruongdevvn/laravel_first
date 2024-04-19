@@ -6,4 +6,6 @@ main {
     background-color: #393e46;
     padding-left: 2rem;
     padding-right: 2rem;
+    height: 80vh;
+    padding-bottom: 20px;
 }
