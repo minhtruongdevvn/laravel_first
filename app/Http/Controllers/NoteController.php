@@ -23,7 +23,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view("note.create");
+        return view('note.create');
     }
 
     /**
@@ -31,7 +31,14 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        return view("note.store");
+        $data = $request->validate([
+            'note' => ['required', 'string']
+        ]);
+
+        $data['user_id'] = $request->user()->id;
+        $note = Note::create($data);
+
+        return to_route('note.show', $note)->with('message', 'Note was create');
     }
 
     /**
@@ -39,7 +46,10 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        return view("note.show", ['note' => $note]);
+        if ($note->user_id !== request()->user()->id) {
+            abort(403);
+        }
+        return view('note.show', ['note' => $note]);
     }
 
     /**
@@ -47,7 +57,10 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return view("note.edit", ['note' => $note]);
+        if ($note->user_id !== request()->user()->id) {
+            abort(403);
+        }
+        return view('note.edit', ['note' => $note]);
     }
 
     /**
@@ -55,7 +68,16 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        return view("note.update");
+        if ($note->user_id !== request()->user()->id) {
+            abort(403);
+        }
+        $data = $request->validate([
+            'note' => ['required', 'string']
+        ]);
+
+        $note->update($data);
+
+        return to_route('note.show', $note)->with('message', 'Note was updated');
     }
 
     /**
@@ -63,6 +85,11 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        return view("note.destroy");
+        if ($note->user_id !== request()->user()->id) {
+            abort(403);
+        }
+        $note->delete();
+
+        return to_route('note.index')->with('message', 'Note was deleted');
     }
 }

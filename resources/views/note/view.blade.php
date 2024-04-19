@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="note-container">
         <div style="text-align: center;color: white">
             <a class="link-btn" href="{{ route('note.create') }}">Add New</a>
@@ -8,6 +8,7 @@
             <div class="content-container">
                 <div class="content-action">
                     <a class="link-btn" href="{{ route('note.edit', $note->id) }}">Edit</a>
+                    <a class="link-btn" href="{{ route('note.show', $note->id) }}">View</a>
                     <a class="link-btn" href="#">Delete</a>
                 </div>
                 <div class="content-text-wrapper">
@@ -18,4 +19,4 @@
             </div>
         @endforeach
     </div>
-</x-layout>
+</x-app-layout>

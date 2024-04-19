@@ -50,6 +50,7 @@
 }
 
 .link-btn {
+    cursor: pointer;
     font-size: 1.3rem;
     text-decoration: none;
     display: inline-block;
@@ -96,4 +97,17 @@
     margin-left: 10px;
     margin-right: 10px;
     justify-content: space-between;
+}
+
+.create {
+    text-align: center;
+    padding: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.show {
+    padding: 12px;
+    width: 100%;
+    height: 100vh;
 }

@@ -42,7 +42,8 @@
 
         body {
             margin: 0;
-            line-height: inherit
+            line-height: inherit;
+            background-color: #393e46;
         }
 
         hr {
@@ -900,11 +901,12 @@
             }
         }
     </style>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/note.css'])
 </head>
 
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-    {{ $slot }}
+<body class="font-sans antialiased">
+    <div style="margin-left: 2rem; margin-right:2rem">
+        {{ $slot }}
+    </div>
 </body>
 
 </html>
