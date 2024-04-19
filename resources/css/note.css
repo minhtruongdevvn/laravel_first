@@ -96,7 +96,7 @@
     font-size: .8rem;
     margin-left: 10px;
     margin-right: 10px;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .create {

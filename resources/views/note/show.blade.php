@@ -4,7 +4,12 @@
             <a class="link-btn" href="{{ route('note.index', $note->id) }}">
                 < Back </a>
                     <a class="link-btn" href="{{ route('note.edit', $note->id) }}">Edit</a>
-                    <a class="link-btn" href="#">Delete X</a>
+                    <form action="{{ route('note.destroy', $note) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="link-btn">Delete</button>
+                    </form>
         </div>
         <div class="content-text-wrapper">
             <blockquote style="max-width: 100%">{{ $note->note }}</blockquote>

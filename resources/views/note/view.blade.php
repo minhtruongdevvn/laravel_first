@@ -9,7 +9,12 @@
                 <div class="content-action">
                     <a class="link-btn" href="{{ route('note.edit', $note->id) }}">Edit</a>
                     <a class="link-btn" href="{{ route('note.show', $note->id) }}">View</a>
-                    <a class="link-btn" href="#">Delete</a>
+                    <form action="{{ route('note.destroy', $note) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="link-btn">Delete</button>
+                    </form>
                 </div>
                 <div class="content-text-wrapper">
                     <blockquote>{{ $note->note }}</blockquote>

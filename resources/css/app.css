@@ -6,6 +6,9 @@ main {
     background-color: #393e46;
     padding-left: 2rem;
     padding-right: 2rem;
-    height: 80vh;
+    min-height: 80vh;
+    /* Set minimum height to fill the screen */
+    overflow-y: auto;
+    /* Allows for scrolling when content overflows */
     padding-bottom: 20px;
 }
