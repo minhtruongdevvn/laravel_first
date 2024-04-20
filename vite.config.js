@@ -7,8 +7,12 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/css/note.css',
             ],
             refresh: true,
-        }),
+        })
     ],
+    build: {
+        outDir: 'public/build', // Customize the output directory
+    }
 });
