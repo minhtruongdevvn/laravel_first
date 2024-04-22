@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
+        "@types/webpack-env": "^1.18.4",
         "@vue/compiler-sfc": "^3.4.23",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.2",
@@ -19,7 +20,12 @@
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
         "tailwindcss": "^3.1.0",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.4.5",
         "vue": "^3.4.23",
         "vue-loader": "^17.4.2"
+    },
+    "dependencies": {
+        "webpack-env": "^0.8.0"
     }
 }

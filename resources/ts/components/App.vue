@@ -4,10 +4,8 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'App'
-}
+<script lang="ts" setup>
+const name: string = 'asd'
 </script>
 
 <style scoped>
