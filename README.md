@@ -4,6 +4,7 @@
 
 <h3>Side note:</h3>
 Install Vue:
+
 1. npm install vue vue-loader @vue/compiler-sfc --save-dev
 
 2. mix.js('resources/js/app.js', 'public/js')
