@@ -6,6 +6,7 @@ const postCssPlugins = [
 ];
 
 mix.js('resources/js/app.js', 'public/js')
+    .vue()
     .postCss('resources/css/app.css', 'public/css', postCssPlugins)
     .postCss('resources/css/note.css', 'public/css', postCssPlugins);
 
