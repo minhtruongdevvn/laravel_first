@@ -61,3 +61,11 @@ function updateTitle() : void {
 add tsconfig.json
 
 add vue-shims.d.ts
+
+<h3>
+auto reload:
+
+npm install browser-sync browser-sync-webpack-plugin --save-dev
+
+mix.browserSync('http://127.0.0.1:8000');
+</h3>

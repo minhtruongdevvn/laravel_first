@@ -49,6 +49,15 @@
     text-align: left;
 }
 
+blockquote b {
+    font-weight: bold;
+}
+
+blockquote i {
+    font-style: italic;
+}
+
+
 .link-btn {
     cursor: pointer;
     font-size: 1.3rem;
@@ -88,15 +97,6 @@
     &:hover:after {
         transform: translateX(0);
     }
-}
-
-.content-action {
-    display: flex;
-    color: #3f3f5a;
-    font-size: .8rem;
-    margin-left: 10px;
-    margin-right: 10px;
-    justify-content: space-around;
 }
 
 .create {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\HtmlPurifierService;
 
 class NoteController extends Controller
 {
@@ -16,7 +17,7 @@ class NoteController extends Controller
         $notes = Note::with('user')
             ->where('user_id', request()->user()->id)
             ->orderBy('created_at', 'desc')
-            ->paginate();
+            ->paginate(12);
 
         return view('note.view', ['notes' => $notes]);
     }
@@ -39,67 +40,60 @@ class NoteController extends Controller
         ]);
 
         $data['user_id'] = $request->user()->id;
-        $note = Note::create($data);
+        $note = Note::create(['note' => HtmlPurifierService::clean($data['note']), 'user_id' => $data['user_id']]);
 
-        return to_route('note.show', $note)->with('message', 'Note was create');
+        return to_route('note.detail', $note)->with('message', 'Note was create');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Note $note)
+    public function detail(string $noteIdParam)
     {
-        if ($note->user_id !== request()->user()->id) {
-            abort(403);
-        }
+        $noteId = (int) $noteIdParam;
 
         $note = Note::with([
             'user' => function ($query) {
                 $query->select('id', 'name');
             }
-        ])->find($note->id);
+        ])->find($noteId);
 
-        return view('note.show', ['note' => $note]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Note $note)
-    {
-        if ($note->user_id !== request()->user()->id) {
+        $user = $note->getRelations()['user'];
+        if ($user->id !== request()->user()->id)
             abort(403);
-        }
-        return view('note.edit', ['note' => $note]);
+
+        return view('note.detail', ['note' => $note]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, string $noteIdParam)
     {
-        if ($note->user_id !== request()->user()->id) {
+        $note = Note::where('id', $noteIdParam)->with('user')->first();
+
+        if ($note == null) {
             abort(403);
         }
+
         $data = $request->validate([
             'note' => ['required', 'string']
         ]);
 
-        $note->update($data);
+        $note->update([
+            'note' => HtmlPurifierService::clean($data['note'])
+        ]);
 
-        return to_route('note.show', $note)->with('message', 'Note was updated');
+        return to_route('note.detail', $note)->with('message', 'Note was updated');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Note $note)
+    public function destroy(string $noteIdParam)
     {
-        if ($note->user_id !== request()->user()->id) {
-            abort(403);
-        }
-        $note->delete();
-
+        Note::destroy((int) $noteIdParam);
         return to_route('note.index')->with('message', 'Note was deleted');
     }
 }
