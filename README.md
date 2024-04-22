@@ -5,10 +5,13 @@
 <h3>Side note:</h3>
 Install Vue:
 1. npm install vue vue-loader @vue/compiler-sfc --save-dev
+
 2. mix.js('resources/js/app.js', 'public/js')
     .vue()  // Add this line to handle .vue files
-3. create vue component in resources/js/components
-4. config app.js:
+   
+4. create vue component in resources/js/components
+
+5. config app.js:
     ```
     import { createApp } from 'vue';
     import ExampleComponent from './components/ExampleComponent.vue';
@@ -23,7 +26,7 @@ Install Vue:
 
     // note: we can use multiple instances in multiple file if needed
     ```
-5. use!!
+6. use!!
     ```
     <!-- no root element -->
     <div id="app">
