@@ -8,7 +8,7 @@
             <form :action="props.deleteLink" method="POST" style="display: inline;">
                 <slot name="delete"></slot>
 
-                <button class="link-btn">Delete</button>
+                <button type="submit" class="link-btn">Delete</button>
             </form>
         </div>
         <div ref="contentRef" class="input" :class="{ edit: isEdit }" @input="handleInput" :contenteditable="isEdit"
@@ -19,9 +19,9 @@
             <slot></slot>
             <textarea hidden="true" name="note" :value="noteDetails.content"></textarea>
             <div v-if="isEdit">
-                <button class="link-btn" @click="handleCancelEdit">Cancel</button>
+                <button type="button" class="link-btn" @click="handleCancelEdit">Cancel</button>
                 &nbsp;&nbsp;&nbsp;
-                <button class="link-btn">Submit</button>
+                <button type="submit" class="link-btn">Submit</button>
             </div>
         </form>
         <button @click="handleInfoPopup" class="expanse-btn">...</button>
@@ -82,9 +82,14 @@ const handleSwitchMode = () => {
     isEdit.value = !isEdit.value;
 }
 const handleCancelEdit = () => {
-    noteDetails.content = props.note;
-    componentKey.value += 1; // trigger re-render to revert content back to init state
-    isEdit.value = !isEdit.value;
+
+    if (props.isCreate) {
+        window.history.back();
+    } else {
+        noteDetails.content = props.note;
+        componentKey.value += 1; // trigger re-render to revert content back to init state
+        isEdit.value = !isEdit.value;
+    }
 }
 
 const updateCount = (text: string) => {
