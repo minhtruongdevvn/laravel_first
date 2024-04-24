@@ -48,41 +48,27 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function detail(string $noteIdParam)
+    public function detail(Note $note)
     {
-        $noteId = (int) $noteIdParam;
-
-        $note = Note::with([
-            'user' => function ($query) {
-                $query->select('id', 'name');
-            }
-        ])->find($noteId);
-
-        $user = $note->getRelations()['user'];
-        if ($user->id !== request()->user()->id)
+        if ($note->user_id !== request()->user()->id) {
             abort(403);
-
+        }
         return view('note.detail', ['note' => $note]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $noteIdParam)
+    public function update(Request $request, Note $note)
     {
-        $note = Note::where('id', $noteIdParam)->with('user')->first();
-
-        if ($note == null) {
+        if ($note->user_id !== request()->user()->id) {
             abort(403);
         }
-
         $data = $request->validate([
             'note' => ['required', 'string']
         ]);
 
-        $note->update([
-            'note' => HtmlPurifierService::clean($data['note'])
-        ]);
+        $note->update($data);
 
         return to_route('note.detail', $note)->with('message', 'Note was updated');
     }
@@ -91,9 +77,13 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $noteIdParam)
+    public function destroy(Note $note)
     {
-        Note::destroy((int) $noteIdParam);
+        if ($note->user_id !== request()->user()->id) {
+            abort(403);
+        }
+        $note->delete();
+
         return to_route('note.index')->with('message', 'Note was deleted');
     }
 }

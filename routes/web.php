@@ -14,9 +14,9 @@ Route::middleware(["auth", "verified"])->group(function () {
     Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
     Route::post('/note', [NoteController::class, 'store'])->name('note.store');
 
-    Route::get('/note/detail/{id}', [NoteController::class, 'detail'])->name('note.detail');
-    Route::put('/note/detail/{id}', [NoteController::class, 'update'])->name('note.update');
-    Route::delete('/note/detail/{id}', [NoteController::class, 'destroy'])->name('note.destroy');
+    Route::get('/note/{note}', [NoteController::class, 'detail'])->name('note.detail');
+    Route::put('/note/{note}', [NoteController::class, 'update'])->name('note.update');
+    Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 });
 
 Route::middleware('auth')->group(function () {
